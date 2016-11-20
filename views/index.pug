@@ -1,0 +1,56 @@
+html
+  head
+    script(type='text/javascript').
+      var videos = !{JSON.stringify(videos)}
+
+      function createYoutubeIframe() {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      }
+     
+      function createYoutubePlayer(options) {
+        var player = new YT.Player('player', {
+          height: '800',
+          width: '1080',
+          videoId: options.videoId,
+          events: {
+            'onReady': function (event) {
+              options.onReady(player, event);
+            },
+            'onStateChange': function (event) {
+              options.onStateChange(player, event);
+            }
+          }
+        });
+      }
+
+      function loadNext(player) {
+        var next = videos.pop();
+        if (next) {
+          player.loadVideoById(next);
+        } else {
+          console.log('done');
+        }
+      }
+
+      createYoutubeIframe();
+      function onYouTubeIframeAPIReady() {
+        console.log('ready');
+        createYoutubePlayer({
+          videoId: videos.pop(),
+          onReady: function (player, event) {
+            event.target.playVideo();
+          },
+          onStateChange: function (player, event) {
+            console.log('event', event);
+            if (event.data === 0) { 
+              loadNext(player);
+            }
+          }
+        });
+      } 
+
+  body
+    div(id='player') 
