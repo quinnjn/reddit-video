@@ -4,13 +4,13 @@ function parseVideoIdFromUrl(url) {
     .split('?')[0];
 }
 
-
 module.exports = function (post) {
   var videoId = parseVideoIdFromUrl(post.url);
 
   return {
     title: post.title,
     redditUrl: 'http://reddit.com' + post.permalink,
-    videoId: videoId
+    videoId: videoId,
+    thumbnail: 'https://img.youtube.com/vi/VIDEO_ID/default.jpg'.replace('VIDEO_ID', videoId)
   }
 };

@@ -5,6 +5,11 @@ function Videos(data) {
 Videos.prototype.get = function () { 
   return this.videos[this.pointer]; 
 }
+Videos.prototype.find = function (id) {
+  return this.videos.filter(function (video) {
+    return video.videoId === id;
+  })[0]; 
+}
 Videos.prototype.next = function () { 
   this.pointer++;
   return this.get(); 
@@ -42,24 +47,26 @@ function createYoutubePlayer(options) {
   return player;
 }
 
-function loadNext(player) {
-  var next = videos.next();
-  if (next) {
-    decorateTitle(next);
-    player.loadVideoById(next);
+function load(player, video) {
+  if (video) {
+    decorateTitle(video);
+    player.loadVideoById(video); 
   } else {
     console.log('done');
   }
 }
 
+function loadNext(player) {
+  load(player, videos.next());
+}
+
 function loadPrev(player) {
-  var prev = videos.prev();
-  if (prev) {
-    decorateTitle(prev);
-    player.loadVideoById(prev);
-  } else {
-    console.log('done');
-  }
+  load(player, videos.prev());
+}
+
+function loadVideo(videoId) {
+  var video = videos.find(videoId);
+  load(player, video);
 }
 
 createYoutubeIframe();

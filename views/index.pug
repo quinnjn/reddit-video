@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Reddit Video
+    link(rel='stylesheet' href='/css/index.css')
   body
     span
       h3
@@ -10,6 +11,18 @@ html
     div(id='controls')
       button(id='prev') Previous
       button(id='next') Next
+    ul(class='videos')
+      each video in videoData.videos
+        li(class='video' id=video.videoId)
+          img(src=video.thumbnail)
+      
   script(type='text/javascript').
     window.videoData = !{JSON.stringify(videoData)};
   script(src='/js/index.js' type='text/javascript')
+  script(type='text/javascript').
+    var lis = document.getElementsByClassName('video');
+    for (var i=0; i<lis.length; i++) {
+      lis[i].addEventListener('click', function (el) {
+        loadVideo(el.currentTarget.id);
+      }, false);
+    }

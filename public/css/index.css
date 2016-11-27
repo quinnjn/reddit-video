@@ -1,0 +1,12 @@
+.videos {
+  list-style-type: none;
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  white-space: nowrap;
+}
+
+.video {
+  display: inline-block;
+  cursor: pointer;
+}
