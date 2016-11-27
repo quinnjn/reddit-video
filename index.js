@@ -25,7 +25,7 @@ app.get('/r/:subreddit/:videoId*?', function (req, res) {
     .filter(function (submission) {
       return /youtube.com/.test(submission.url) && /v=/.test(submission.url);
     })
-    .map(redditVideo(post)
+    .map(redditVideo)
     .then(function (videos, reject) {
       var pointer = videos.findIndex(function (video) {
         return videoId === video.videoId;
@@ -40,7 +40,7 @@ app.get('/r/:subreddit/:videoId*?', function (req, res) {
         videos: videos
       };
 
-      recordAnalytics{
+      recordAnalytics({
         subreddit: subreddit,
         videoData: {
           pointer: videoData.pointer,
