@@ -56,6 +56,10 @@ app.get('/r/:subreddit/:videoId*?', function (req, res) {
 });
 
 app.set('view engine', 'pug');
+app.use(express.static('./public'))
+if (app.get('env') === 'development') {
+  app.locals.pretty = true;
+}
 app.listen(3000, function () {
  console.log('Example app listening on port 3000!');
 })
