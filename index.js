@@ -17,6 +17,10 @@ function recordAnalytics(data) {
 
 
 app.use(morgan('combined'));
+app.get('/robots.txt', function (req, res) {
+  res.type('text/plain');
+  res.send("User-agent: *\nDisallow: /");
+});
 app.get('/r/:subreddit/:videoId*?', function (req, res) {
   var subreddit = req.params.subreddit
   var videoId = req.params.videoId || '';
