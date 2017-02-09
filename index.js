@@ -15,7 +15,6 @@ function recordAnalytics(data) {
   console.log(data);
 }
 
-
 app.use(morgan('combined'));
 app.get('/robots.txt', function (req, res) {
   res.type('text/plain');
