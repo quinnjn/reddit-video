@@ -18,6 +18,13 @@ Videos.prototype.prev = function () {
   this.pointer--;
   return this.get(); 
 }
+Videos.prototype.setPointerToVideo = function (needle) {
+  var index = this.videos.findIndex(function (haystack) {
+    return haystack.videoId == needle.videoId;
+  }); 
+
+  this.pointer = index;
+}
 
 var player;
 var titleHtml = document.getElementById('title');
@@ -67,6 +74,7 @@ function loadPrev(player) {
 function loadVideo(videoId) {
   var video = videos.find(videoId);
   load(player, video);
+  videos.setPointerToVideo(video);
 }
 
 createYoutubeIframe();
