@@ -63,11 +63,11 @@ function load(player, video) {
   }
 }
 
-function loadNext(player) {
+function loadNext() {
   load(player, videos.next());
 }
 
-function loadPrev(player) {
+function loadPrev() {
   load(player, videos.prev());
 }
 
@@ -89,7 +89,7 @@ function onYouTubeIframeAPIReady() {
     onStateChange: function (player, event) {
       console.log('event', event);
       if ([0].includes(event.data)) { 
-        loadNext(player);
+        loadNext();
       }
     }
   });
@@ -109,10 +109,5 @@ function decorateTitle(video) {
  window.history.pushState('', '', pathname.join('/'));
 }
 
-document.getElementById('next').addEventListener('click', function () { 
-  loadNext(player); 
-});
-
-document.getElementById('prev').addEventListener('click', function () { 
-  loadPrev(player); 
-});
+document.getElementById('next').addEventListener('click', loadNext);
+document.getElementById('prev').addEventListener('click', loadPrev);
