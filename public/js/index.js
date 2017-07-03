@@ -111,3 +111,14 @@ function decorateTitle(video) {
 
 document.getElementById('next').addEventListener('click', loadNext);
 document.getElementById('prev').addEventListener('click', loadPrev);
+document.onkeydown = function (e) {
+  e = e || window.event;
+  switch(e.keyCode) {
+    case '37': // Left Arrow
+      loadPrev();
+      break;
+    case '39': // Right Arrow
+      loadNext();
+      break;
+  }
+};
