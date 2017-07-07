@@ -11,6 +11,8 @@ const reddit = new snoowrap({
   refreshToken: '7361396-VewgqQ_T7YoBNO5mXkeRhgrc5XU'
 });
 
+const PORT = process.env.PORT || 8000;
+
 function recordAnalytics(data) {
   console.log(data);
 }
@@ -63,6 +65,6 @@ app.use(express.static('./public'))
 if (app.get('env') === 'development') {
   app.locals.pretty = true;
 }
-app.listen(3000, function () {
- console.log('Example app listening on port 3000!');
+app.listen(PORT, function () {
+ console.log(`reddit-video listening on port ${PORT}!`);
 })
