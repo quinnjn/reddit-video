@@ -4,7 +4,6 @@ module.exports = function (req, res) {
   var options = {
     method: 'HEAD',
     uri: 'https://www.reddit.com/random.json'
-    // followRedirect: false
   };
   request(options, function (err, response, body) {
     var subreddit = 'videos';

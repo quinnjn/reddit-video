@@ -13,6 +13,10 @@ const reddit = new snoowrap({
 
 const PORT = process.env.PORT || 8000;
 
+function filterYoutubeUrls(submission) {
+  return /youtube.com/.test(submission.url) && /v=/.test(submission.url);
+}
+
 function recordAnalytics(data) {
   console.log(data);
 }
@@ -27,11 +31,13 @@ app.get('/r/:subreddit/:videoId*?', function (req, res) {
   var videoId = req.params.videoId || '';
   reddit.getSubreddit(subreddit)
     .getHot()
-    .filter(function (submission) {
-      return /youtube.com/.test(submission.url) && /v=/.test(submission.url);
-    })
+    .filter(filterYoutubeUrls)
     .map(redditVideo)
     .then(function (videos, reject) {
+      var videoData = {
+        pointer: null,
+        videos: videos
+      };
       var pointer = videos.findIndex(function (video) {
         return videoId === video.videoId;
       });
@@ -40,10 +46,7 @@ app.get('/r/:subreddit/:videoId*?', function (req, res) {
         pointer = 0;
       } 
 
-      var videoData = {
-        pointer: pointer,
-        videos: videos
-      };
+      videoData.pointer = pointer;
 
       recordAnalytics({
         subreddit: subreddit,
