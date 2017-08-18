@@ -11,7 +11,7 @@ const reddit = new snoowrap({
   refreshToken: '7361396-VewgqQ_T7YoBNO5mXkeRhgrc5XU'
 });
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 80;
 
 function filterYoutubeUrls(submission) {
   return /youtube.com/.test(submission.url) && /v=/.test(submission.url);
