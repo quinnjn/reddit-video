@@ -14,7 +14,11 @@ const reddit = new snoowrap({
 const PORT = process.env.PORT || 80;
 
 function filterYoutubeUrls(submission) {
-  return /youtube.com/.test(submission.url) && /v=/.test(submission.url);
+  if (/youtube.com/.test(submission.url)) {
+    return /v=/.test(submission.url);
+  } else {
+    return /youtu.be\//.test(submission.url);
+  }
 }
 
 function recordAnalytics(data) {

@@ -1,11 +1,7 @@
-function parseVideoIdFromUrl(url) {
-  return url.split('v=')[1]
-    .split('&')[0]
-    .split('?')[0];
-}
+var extractId = require('youtube-url').extractId;
 
 module.exports = function (post) {
-  var videoId = parseVideoIdFromUrl(post.url);
+  var videoId = extractId(post.url);
 
   return {
     title: '[' + post.subreddit.display_name + '] ' + post.title,
