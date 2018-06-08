@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const snoowrap = require('snoowrap');
 const redditVideo = require('./src/models/redditvideo');
 const url = require('url');
+const videoId = require('get-video-id');
 const app = express();
 const reddit = new snoowrap({
   userAgent: 'redditube',
@@ -14,10 +15,10 @@ const reddit = new snoowrap({
 const PORT = process.env.PORT || 80;
 
 function filterYoutubeUrls(submission) {
-  if (/youtube.com/.test(submission.url)) {
-    return /v=/.test(submission.url);
-  } else {
-    return /youtu.be\//.test(submission.url);
+  const videoMetaData = videoId(submission.url);
+  console.log(videoMetaData);
+  if (videoMetaData.service == 'youtube') {
+    return videoMetaData.id;
   }
 }
 

@@ -1,7 +1,7 @@
-var extractId = require('youtube-url').extractId;
+const getVideoId = require('get-video-id');
 
 module.exports = function (post) {
-  var videoId = extractId(post.url);
+  var videoId = getVideoId(post.url).id;
 
   return {
     title: '[' + post.subreddit.display_name + '] ' + post.title,
