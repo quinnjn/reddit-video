@@ -10,3 +10,7 @@
   display: inline-block;
   cursor: pointer;
 }
+
+html {
+  background: #000;
+}
